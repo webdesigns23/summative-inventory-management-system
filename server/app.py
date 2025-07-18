@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from server.inventory import items
-import server.inventory as inventory
+from inventory import items
+import inventory as inventory
 
 app = Flask(__name__)
 

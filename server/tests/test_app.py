@@ -5,9 +5,9 @@ import pytest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from server.app import app
-from server.inventory import items
-import server.inventory as inventory
+from app import app
+from inventory import items
+import inventory as inventory
 
 @pytest.fixture
 def client():
