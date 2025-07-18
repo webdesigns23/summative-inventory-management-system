@@ -38,12 +38,16 @@ def add_inventory_item():
 @app.route("/inventory/<int:id>", methods=["PATCH"])
 def update_inventory_item(id):
 	data = request.get_json()
-
 	item = next((item for item in items if item['id'] == id), None)
+	
 	if not item:
 		return ("Item not found", 404)
-	if "name" in data:
-		item['name'] = data["name"]
+	
+	if "price" in data:
+		item["price"] = data["price"]
+	if "stock" in data:
+		item["stock"] = data["stock"]
+
 	return jsonify(item)
 
 # DELETE /inventory/<id> → Remove an item
