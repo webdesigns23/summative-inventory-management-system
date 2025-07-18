@@ -55,5 +55,24 @@ def delete_inventory_item(id):
 	items = [item for item in items if item['id'] != id]
 	return ("Item deleted", 204)
 
+# GET Search Helper
+@app.route("inventory/search", method=["GET"])
+def search_items():
+	query = request.args.get('q', '')
+	result = [item for item in items if query.lower() in item ["name"].lower()]
+	return jsonify (result), 200
+
+# GET Count Helper
+@app.route("inventory/count", method=["GET"])
+def count_items():
+	count = len(items)
+	return jsonify({"count": count}), 200
+
+@app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*' 
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type' 
+    return response
+
 if __name__ == "__main__":
 	app.run(debug=True)
