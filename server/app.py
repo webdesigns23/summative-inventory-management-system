@@ -30,7 +30,7 @@ def add_inventory_item():
 		return jsonify({"error": "Missing 'name' in request data"}), 400
 	
 	new_id = max((item["id"] for item in items), default=0) + 1
-	new_item = {"id": new_id, "name": data["name"]}
+	new_item = {"id": new_id, "name": data["name"], "brand": data["brand"], "price": data["price"], "stock": data["stock"]}
 	items.append(new_item)
 	return jsonify(new_item), 201
 
