@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from server.data import items
+from server.inventory import items
+import server.inventory as inventory
 
 app = Flask(__name__)
 
@@ -55,17 +56,10 @@ def delete_inventory_item(id):
 	items = [item for item in items if item['id'] != id]
 	return ("Item deleted", 204)
 
-# GET Search Helper
-@app.route("inventory/search", method=["GET"])
-def search_items():
-	query = request.args.get('q', '')
-	result = [item for item in items if query.lower() in item ["name"].lower()]
-	return jsonify (result), 200
-
 # GET Count Helper
-@app.route("inventory/count", method=["GET"])
+@app.route("/inventory/count", methods=["GET"])
 def count_items():
-	count = len(items)
+	count = len(inventory.items)
 	return jsonify({"count": count}), 200
 
 @app.after_request

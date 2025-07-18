@@ -6,7 +6,8 @@ import pytest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from server.app import app
-from server.data import items
+from server.inventory import items
+import server.inventory as inventory
 
 @pytest.fixture
 def client():
@@ -62,3 +63,13 @@ def test_delete_item():
     assert response.status_code == 204
     get_response = client.get("/inventory/1")
     assert get_response.status_code == 404
+
+def test_count_items(client):
+    inventory.items.clear()
+    inventory.items.append({"id": 1, "name": "Item One"})
+    inventory.items.append({"id": 2, "name": "Item Two"})
+
+    response = client.get("/inventory/count")
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data["count"] == 2
