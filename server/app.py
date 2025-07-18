@@ -15,7 +15,10 @@ def get_inventory():
 # GET /inventory/<id> → Fetch a single item
 @app.route("/inventory/<int:id>", methods=["GET"])
 def get_inventory_by_id(id):
-	pass
+	item = next((item for item in items if item['id'] == id), None)
+	if item:
+		return jsonify(item)
+	return jsonify ({"error":"Item not found"}), 404
 
 # POST /inventory → Add a new item
 @app.route("/inventory", methods=["POST"])
@@ -33,12 +36,24 @@ def add_inventory_item():
 # PATCH /inventory/<id> → Update an item
 @app.route("/inventory/<int:id>", methods=["PATCH"])
 def update_inventory_item(id):
-	pass
+	data = request.get_json()
+
+	item = next((item for item in items if item['id'] == id), None)
+	if not item:
+		return ("Item not found", 404)
+	if "name" in data:
+		item['name'] = data["name"]
+	return jsonify(item)
 
 # DELETE /inventory/<id> → Remove an item
 @app.route("/inventory/<int:id>", methods=["DELETE"])
 def delete_inventory_item(id):
-	pass
+	global items
+	item = next((item for item in items if item['id'] == id), None)
+	if not item:
+		return ("Item not found", 404)
+	items = [item for item in items if item['id'] != id]
+	return ("Item deleted", 204)
 
 if __name__ == "__main__":
 	app.run(debug=True)
