@@ -67,26 +67,23 @@ document.querySelector("#update-form").addEventListener("submit", (e) => {
 });
 
 //Delete Product
-// document.querySelector("#update-form").addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   const id = document.querySelector("#product-id").value;
-//   const updateStock = parseInt(document.querySelector("#update-stock").value);
+document.querySelector("#delete-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = (document.querySelector("#delete-product-id").value);
 
-//   fetch(`http://127.0.0.1:5000/inventory/${id}`, {
-//     method: "PATCH",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({stock: updateStock})
-//   })
-//   .then(response => {
-// 	if(!response.ok) {
-// 		throw new Error("Error, response not ok");
-// 	}
-// 	return response.json();
-//   })
-//   .then(updatedItem => {
-// 	console.log("Updated item:", updatedItem);
-//   })
-//   .catch(error => {
-// 	console.error("Error:", error);
-//   });
-// });
+  fetch(`http://127.0.0.1:5000/inventory/${id}`, {
+    method: "DELETE",
+  })
+  .then(response => {
+	if(!response.ok) {
+		throw new Error("Error, response not ok");
+	}
+	return response.json();
+  })
+  .then(data => {
+	alert(data.message || "Product Deleted:");
+  })
+  .catch(error => {
+	console.error("Error:", error);
+  });
+});

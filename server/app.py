@@ -56,9 +56,9 @@ def delete_inventory_item(id):
 	global items
 	item = next((item for item in items if item['id'] == id), None)
 	if not item:
-		return ("Item not found", 404)
+		return jsonify({"message":"Item not found"}), 404
 	items = [item for item in items if item['id'] != id]
-	return ("Item deleted", 204)
+	return jsonify({"message":"Item deleted"}), 200 or 204
 
 # GET Count Helper
 @app.route("/inventory/count", methods=["GET"])
