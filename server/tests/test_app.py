@@ -26,14 +26,14 @@ def test_create_inventory():
     client = app.test_client()
     response = client.post("/inventory", json={
         "name": "New Item", 
-        "brand": "New Brand", 
+        "barcode": "New Barcode", 
         "price": 10.99, 
         "stock": 12})
     assert response.status_code == 201
     data = response.get_json()
     assert "id" in data and "name" in data
     assert data["name"] == "New Item"
-    assert data["brand"] == "New Brand"
+    assert data["barcode"] == "New Barcode"
     assert data["price"] == 10.99
     assert data["stock"] == 12
 
@@ -42,7 +42,7 @@ def test_get_item():
     client = app.test_client()
     client.post("/inventory", json={
         "name": "Sample Item",
-        "brand": "Brand1",
+        "barcode": "Barcode1",
         "price": 5.99,
         "stock": 10
         })
@@ -53,7 +53,7 @@ def test_get_item():
 def test_post_inventory_adds_new_item(client):
     payload = {
         "name": "New Test Item",
-        "brand": "Brand Test",
+        "barcode": "Barcode Test",
         "price": 3.99,
         "stock": 5
         }
@@ -62,7 +62,7 @@ def test_post_inventory_adds_new_item(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert data["name"] == payload["name"]
-    assert data["brand"] == payload["brand"]
+    assert data["barcode"] == payload["barcode"]
     assert data["price"] == payload["price"]
     assert data["stock"] == payload["stock"]
     assert "id" in data
@@ -72,14 +72,14 @@ def test_patch_item():
     client = app.test_client()
     client.post("/inventory", json={
         "name": "Name1",
-        "brand": "Brand1",
+        "barcode": "Barcode1",
         "price": 3.99,
         "stock": 5
         })
     response = client.patch("/inventory/1", json={"price": 6.99, "stock": 8})
     assert response.status_code == 200
     assert response.get_json()["name"] == "Name1"
-    assert response.get_json()["brand"] == "Brand1"
+    assert response.get_json()["barcode"] == "Barcode1"
     assert response.get_json()["price"] == 6.99
     assert response.get_json()["stock"] == 8
 
@@ -88,7 +88,7 @@ def test_delete_item():
     client = app.test_client()
     client.post("/inventory", json={
         "name": "Delete Name",
-        "brand": "Delete Brand",
+        "barcode": "Delete Barcode",
         "price": 2.99,
         "stock": 3
         })

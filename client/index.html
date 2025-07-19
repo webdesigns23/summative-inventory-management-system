@@ -9,22 +9,27 @@
 <h1>Inventory Management System</h1>
 <body>
   <h2>Add Item:</h2>
-  <form>
-	<label for="name">Name:</label>
-	<input type="text" id="name" name="name">
-  <label for="brand">Brand:</label>
-  <input type="text" id="brand" brand="brand">
-  <label for="price">Price:</label>
-  <input type="text" id="price" price="price" min="0" placeholder="0.00">
-  <label for="stock">Stock:</label>
-  <input type="text" id="stock" stock="stock">
-	<input type="submit">
+  <form id="add-form">
+	  <label for="name">Name:</label>
+	  <input type="text" id="name" name="name" required>
+    <label for="barcode">Barcode:</label>
+    <input type="text" id="barcode" name="barcode" required>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" min=0 placeholder="0.00" required>
+   <label for="stock">Stock:</label>
+    <input type="number" id="stock" min = 1 name="stock" required>
+	  <input type="submit">
   </form>
-  <h2>Update (Price/Stock):</h2>
-  <label for="price">Price:</label>
-  <input type="number" id="price" min="0" placeholder="0.00">
-  <label for="stock">Stock:</label>
-  <input type="number" id="stock" min="0">
+
+  <h2>Update Stock:</h2>
+  <form id="update-form">
+    <label for="product-id">Product ID:</label>
+    <input type="number" id="product-id" placeholder="Item ID" required>
+    <label for="update-stock">New Stock Level:</label>
+    <input type="number" id="update-stock" placeholder="New Stock" min=1 required>
+    <input type="submit">
+  </form>
+  
   <h2>Inventory Details:</h2>
   <ul id="item-list">
   </ul>
