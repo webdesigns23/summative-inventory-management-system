@@ -12,3 +12,9 @@ h1 {
   background-color: rgb(53, 72, 73);
   color: white
 }
+
+h2 {
+  color: rgb(105, 49, 49);
+  text-decoration: underline;
+}
+

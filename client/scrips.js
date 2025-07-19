@@ -18,7 +18,8 @@ document.querySelector("#add-form").addEventListener("submit", (e) => {
     body: JSON.stringify({name, barcode, price, stock})
   })
   .then(response => response.json())
-  .then(renderCurrentInventory);  
+  .then(renderCurrentInventory); 
+  document.querySelector("#add-form").reset(); 
 });
 
 function renderCurrentInventory(item) {
@@ -38,7 +39,7 @@ function renderCurrentInventory(item) {
   	li.appendChild(priceSpan);
   	li.appendChild(document.createElement("br"));
   	li.appendChild(stockSpan);
-   	document.querySelector("#item-list").appendChild(li);
+   	document.querySelector("#item-list").appendChild(li);	
 }
 
 //PATCH:Update Stock Level
@@ -87,3 +88,25 @@ document.querySelector("#delete-form").addEventListener("submit", (e) => {
 	console.error("Error:", error);
   });
 });
+
+//View Enhanced Product Details by Barcode
+document.querySelector("#enhance-form").addEventListener("submit", (e) => {
+	e.preventDefault();
+	const id = (document.querySelector("#enhanced-product-id").value);
+
+	fetch(`http://127.0.0.1:5000/inventory/${id}/enhance`, {
+    	method: "GET",
+    	headers: { "Content-Type": "application/json" },
+    	body: JSON.stringify({brand, ingredients, allergens})
+  	})
+  	.then(response => {
+	if(!response.ok) {
+		throw new Error("Error, response not ok");
+	}
+	return response.json();
+  	})
+   	.catch(error => {
+	console.error("Error:", error);
+  	});
+})
+ 

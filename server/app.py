@@ -90,7 +90,6 @@ def enhance_inventory_item(id):
 	except Exception as error:
 		return jsonify({"error": error}), 500
 
-
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*' 
