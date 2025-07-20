@@ -95,7 +95,7 @@ document.querySelector("#enhance-form").addEventListener("submit", (e) => {
 	const id = (document.querySelector("#enhance-product-id").value);
 
 	fetch(`http://127.0.0.1:5000/inventory/${id}/enhance`, {
-    	method: "PATCH",
+    	method: "GET",
     	headers: { "Content-Type": "application/json" },
   	})
   	.then(response => {
@@ -118,7 +118,9 @@ document.querySelector("#enhance-form").addEventListener("submit", (e) => {
 
 		enhancedDetails.appendChild(brand);
 		enhancedDetails.appendChild(document.createElement("br"));
+		enhancedDetails.appendChild(document.createElement("br"));
 		enhancedDetails.appendChild(ingredients);
+		enhancedDetails.appendChild(document.createElement("br"));
 		enhancedDetails.appendChild(document.createElement("br"));
 		enhancedDetails.appendChild(allergens)		
 	})

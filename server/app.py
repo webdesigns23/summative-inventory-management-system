@@ -65,7 +65,7 @@ def count_items():
 	return jsonify({"count": count}), 200
 
 # /inventory/<id>/enchance from External API.
-@app.route("/inventory/<int:id>/enhance", methods=["PATCH"])
+@app.route("/inventory/<int:id>/enhance", methods=["GET"])
 def enhance_inventory_item(id):
 	item = next((item for item in items if item['id'] == id), None)
 	if not item:
