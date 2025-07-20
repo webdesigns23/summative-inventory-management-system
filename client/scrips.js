@@ -92,12 +92,11 @@ document.querySelector("#delete-form").addEventListener("submit", (e) => {
 //View Enhanced Product Details by Barcode
 document.querySelector("#enhance-form").addEventListener("submit", (e) => {
 	e.preventDefault();
-	const id = (document.querySelector("#enhanced-product-id").value);
+	const id = (document.querySelector("#enhance-product-id").value);
 
 	fetch(`http://127.0.0.1:5000/inventory/${id}/enhance`, {
-    	method: "GET",
+    	method: "PATCH",
     	headers: { "Content-Type": "application/json" },
-    	body: JSON.stringify({brand, ingredients, allergens})
   	})
   	.then(response => {
 	if(!response.ok) {
@@ -105,6 +104,24 @@ document.querySelector("#enhance-form").addEventListener("submit", (e) => {
 	}
 	return response.json();
   	})
+	.then(data => {
+		const enhancedDetails = document.querySelector("#enhanced-details")
+		enhancedDetails.innerHTML = ""
+
+		const brand = document.createElement("span");
+		const ingredients = document.createElement("span")
+		const allergens = document.createElement("span")
+		
+		brand.textContent = `Brand: ${data.brand}`;
+		ingredients.textContent = `Ingredients: ${data.ingredients}`;
+		allergens.textContent = `Allergens: ${data.allergens}`;
+
+		enhancedDetails.appendChild(brand);
+		enhancedDetails.appendChild(document.createElement("br"));
+		enhancedDetails.appendChild(ingredients);
+		enhancedDetails.appendChild(document.createElement("br"));
+		enhancedDetails.appendChild(allergens)		
+	})
    	.catch(error => {
 	console.error("Error:", error);
   	});
